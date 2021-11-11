@@ -1,0 +1,25 @@
+/* Schrijf hier je CSS */
+table {
+        border-color: black;
+        border-collapse:collapse;
+        background-color:white;
+}
+td {
+        height: 35px;
+        width: 35px;
+        padding: 15px;
+        border: 1px black;
+        
+}
+caption {
+        color: black;
+        width: 35px;
+
+}
+
+.white{
+        display: block;
+}
+.black { 
+            text-align: center;
+}

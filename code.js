@@ -1,5 +1,4 @@
 //Schrijf hier je JavaScript-code
-//Schrijf hier je JavaScript-code
 
 let my_board =      [[0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -83,16 +82,22 @@ function visible (square_class){
 }
 
 function visibleitem(i, j){
-    return visible(my_board[i][j].square_class);
+    return visible(my_board[i][j][square_class]);
 }
 
 
 
 function validposition (i, j ){
-    return (i >= 1 && i <= 8 ) && (j >= 1 && j <=8);
+    return (i >= 1 && i <= 8*8 ) && (j >= 1 && j <=8*8);
 }
 
 function checkallDir (i, j){
+
+    if (my_board[i][j] != "empty" || ! validposition(i, j) ){
+        return false;
+    }
+
+
     let huidig = current_turn;
     let checki;
     let checkj; 
@@ -103,32 +108,27 @@ function checkallDir (i, j){
                 om_te_checken = zwarte
                 }
 
-if (! validposition(i,j) || checkallDir(i, j)){
+    for ( let rowRichting = -1; rowRichting <= 1; rowRichting++){
+        for( let colRichitng = -1; colRichitng <= 1; colRichitng++){
 
-        return false;
-    }
-
-for ( let rowRichting = -1; rowRichting <= 1; rowRichting++){
-    for( let colRichitng = -1; colRichitng <= 1; colRichitng++){
-
-        if (rowRichting === 0 && colRichitng === 0){
-            continue;
+            if (rowRichting === 0 && colRichitng === 0){
+                continue;
         }
 
 
-        checki = i + rowRichting;
-        checkj = j + colRichitng;
+            checki = i + rowRichting;
+            checkj = j + colRichitng;
 
-        let item = false;
+            let item = false;
 
-        while( validposition(checki, checkj ) && visibleitem(checki, checkj) && my_board[checki][checkj][square_classsquare_class.id === om_te_checken.id]) {
+            while( validposition(checki, checkj ) && visibleitem(checki, checkj) && my_board[checki][checkj][square_classsquare_class.id === om_te_checken.id]) {
 
 
         
-        checki += rowRichting;
-        checkj += colRichitng;
+            checki += rowRichting;
+            checkj += colRichitng;
         
-            item =true;
+                item =true;
 
                 }
          }
@@ -136,6 +136,14 @@ for ( let rowRichting = -1; rowRichting <= 1; rowRichting++){
 }
 
 
+function reset(board){
+    for(i=0; i<8; i++){
+        for(j=0; j<8; j++){
+            board[i][j] =""
+        }
+    }
+    return my_board;
+} 
 
 
 
@@ -147,7 +155,7 @@ for ( let rowRichting = -1; rowRichting <= 1; rowRichting++){
 
 function scorecounter(board){
     let score1 = 0;
-    letscore2 = 0;
+    let score2 = 0;
     
 
     for(i=0; i<i.length; i++){
@@ -180,13 +188,5 @@ function win(){
 
 function newgame(){
     alert("NEW GAME WILL START")
-    let my_board =    [[0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 2, 1, 0, 0, 0],
-                        [0, 0, 0, 1, 2, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0]];
-    draw_board(my_board)
+    return reset();
 }

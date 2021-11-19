@@ -151,15 +151,29 @@ function reset(board){
     return my_board;
 } 
 
+function start(){
+    let timer;
+    
+    timer = setInterval(counttimer, 1000);
+    counttimer();
+}
+
+
+function counttimer(){
+    let sec = 0;
+    ++sec;
+    let uur = math.floor(sec/3600);
+    let minuten = math.floor((sec - uur*3600)/60);
+    let seconden = sec - (uur*3600+minuten*60);
+
+    document.getElementById("tijd").innerHTML = uur + minuten + seconden;
+}
 
 
 
 
 
-
-
-
-function scorecounter(board){
+function scorecounter(my_board){
     let score1 = 0;
     let score2 = 0;
     
@@ -170,11 +184,9 @@ function scorecounter(board){
                 score1 += 1;
             if (my_board[i][j] == "wit");
                 score2 +=1;
-            } {
-            return scorecounter();
+            } 
         } 
     }   
-}
        
 
 

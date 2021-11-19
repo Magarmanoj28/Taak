@@ -9,13 +9,12 @@ let my_board =      [[0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0]];
 
-                    
 
 window.onload = function(){
     draw_board(my_board)
-}                    
+}
 
-let current_turn = 2;
+let current_turn = 1;
 
 function draw_board(board){
     container = document.getElementById("board_container");
@@ -23,24 +22,29 @@ function draw_board(board){
     container.innerHTML = board_html;
 }
 
+let table_inner_html = "<table>";
 function generate_board_html(board){
-    let table_inner_html = "";
+    
     for(let i = 0; i < board.length; i++){
-        
-        let row_html = "<tr>"
+        table_inner_html += generate_row_html(board,i);
+    }
+        table_inner_html += "</table>"
+        return table_inner_html;
+
+}
+
+function generate_row_html(board, i){
+        let row_html = "<tr>";
         for(let j = 0; j < board[i].length; j++){
             row_html += generate_square(board[i][j]);
         }
-        row_html += "</tr>";
-        table_inner_html += row_html;
+        row_html += "</tr>";   
+        return row_html;
     }
 
-    return `<table>${table_inner_html}</table>`;
-    
-}
 
 function generate_square(type){
-    let square_class = "empty";
+    let square_class = "empty" ;
     let square_content = "";
 
     if(type == 1){
@@ -52,18 +56,19 @@ function generate_square(type){
     }
     return `<td class="${square_class} board_element" onclick="square_click_handler(this)">${square_content}</td>`;
 }
+    
 
 function update_board(board, row, col, type){
     board[row][col] = type;
     draw_board(board);
 }
 
+
 function square_click_handler(event){
     let col = event.cellIndex;
     let row = event.parentNode.rowIndex;
 
-    update_board(my_board, row, col, current_turn);
-
+    update_board(my_board, row, col, current_turn,);
     return turn();
 }
 
@@ -75,6 +80,7 @@ function turn(){
         current_turn = 1;
     }
 }
+
 
 
 function visible (square_class){
@@ -139,7 +145,7 @@ function checkallDir (i, j){
 function reset(board){
     for(i=0; i<8; i++){
         for(j=0; j<8; j++){
-            board[i][j] =""
+            my_board[i][j] =""
         }
     }
     return my_board;
